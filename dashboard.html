@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Smart Ragunan Ride: penyewaan kendaraan ramah lingkungan di Taman Margasatwa Ragunan.">
+  <title>Dashboard Customer | Smart Ragunan Ride</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo.jpg" alt="Logo" height="40" class="rounded" onerror="this.remove()">
+        <span class="brand">Smart Ragunan Ride</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Buka navigasi">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="katalog.html">Katalog Kendaraan</a></li>
+          <li class="nav-item" data-only="customer"><a class="nav-link active" href="dashboard.html">Customer Dashboard</a></li>
+          <li class="nav-item" data-only="admin"><a class="nav-link" href="admin.html">Dashboard Admin</a></li>
+          <li class="nav-item ms-lg-3">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Pilih peran">
+              <button type="button" data-role="customer" class="btn btn-outline-primary">Customer</button>
+              <button type="button" data-role="admin" class="btn btn-outline-primary">Admin</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="container py-4">
+  <!-- Profil (diisi dari akun yang login) -->
+  <section class="row g-3 align-items-center mb-4">
+    <div class="col-lg-7 d-flex align-items-center gap-3">
+      <div id="profileInitial" class="avatar"></div>
+      <div>
+        <h1 id="profileName" class="h3 text-primary mb-0"></h1>
+        <p class="text-muted mb-0">ID Pelanggan: <b id="profileId"></b> · Bergabung sejak <span id="profileJoined"></span></p>
+      </div>
+    </div>
+    <div class="col-lg-5"><div class="row g-2"><div class="col-4"><div class="card border-0 shadow-sm text-center"><div class="card-body py-2"><p id="statDone" class="fw-bold text-primary mb-0"></p><small class="text-muted">Total Sewa</small></div></div></div><div class="col-4"><div class="card border-0 shadow-sm text-center"><div class="card-body py-2"><p id="statSpent" class="fw-bold text-primary mb-0"></p><small class="text-muted">Pengeluaran</small></div></div></div><div class="col-4"><div class="card border-0 shadow-sm text-center"><div class="card-body py-2"><p id="statReviews" class="fw-bold text-primary mb-0"></p><small class="text-muted">Ulasan</small></div></div></div></div></div>
+  </section>
+
+  <!-- Sewa aktif + timer (fitur 7) -->
+  <section class="card border-0 shadow-sm mb-4 overflow-hidden">
+    <div id="rentalActive" class="d-none">
+      <div class="bg-primary text-white px-4 py-2 small fw-semibold">SEWA AKTIF · Order #<span id="rentalOrder"></span></div>
+      <div class="card-body row g-3 p-4">
+        <div class="col-md-6">
+          <p class="small text-muted mb-0">Kendaraan</p>
+          <p id="rentalBike" class="h5 text-primary"></p>
+          <p class="mb-1">Shelter: <span id="rentalShelter"></span></p>
+          <p class="mb-2">Mulai: <span id="rentalStart"></span> · Batas kembali: <b id="rentalEnd"></b></p>
+          <button id="extendBtn" type="button" class="btn btn-success me-1">Perpanjang Durasi</button>
+          <button id="sosBtn" type="button" class="btn btn-danger">SOS Darurat</button>
+        </div>
+        <div class="col-md-6 text-center">
+          <p class="small text-muted mb-0">Sisa waktu sewa</p>
+          <p id="timer" class="timer mb-2">00:00:00</p>
+          <div class="progress" role="progressbar" aria-label="Progres sewa"><div id="bar" class="progress-bar bg-success" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+    <div id="rentalEmpty" class="card-body text-center p-4">
+      <p class="h5 text-primary">Belum ada sewa yang berjalan</p>
+      <p id="rentalEmptyMsg" class="text-muted"></p>
+      <a href="katalog.html" class="btn btn-primary">Lihat Katalog</a>
+    </div>
+  </section>
+
+  <!-- Tab: Riwayat (fitur 9), QR Booking (fitur 6, 8), Ulasan & Rating -->
+  <section>
+    <ul class="nav nav-pills mb-3" role="tablist"><li class="nav-item"><button id="tab-history" data-tab="history" data-bs-toggle="pill" data-bs-target="#pane-history" type="button" class="nav-link active">Riwayat</button></li><li class="nav-item"><button id="tab-qr" data-tab="qr" data-bs-toggle="pill" data-bs-target="#pane-qr" type="button" class="nav-link">QR Booking</button></li><li class="nav-item"><button id="tab-review" data-tab="review" data-bs-toggle="pill" data-bs-target="#pane-review" type="button" class="nav-link">Ulasan &amp; Rating</button></li></ul>
+    <div class="card border-0 shadow-sm"><div class="card-body tab-content">
+
+      <div id="pane-history" class="tab-pane active table-responsive">
+        <table class="table align-middle">
+          <thead><tr><th>ID</th><th>Kendaraan</th><th>Tanggal</th><th>Total</th><th>Status</th><th></th></tr></thead>
+          <tbody id="historyRows"></tbody>
+        </table>
+        <p id="historyEmpty" class="d-none">Belum ada transaksi.</p>
+      </div>
+
+      <div id="pane-qr" class="tab-pane">
+        <p id="qrEmpty">Belum ada booking aktif. <a href="katalog.html">Pesan kendaraan</a></p>
+        <div id="qrContent" class="d-none text-center">
+          <h2 class="h5 text-primary">QR Booking <span id="qrId"></span></h2>
+          <div id="qrBox" class="d-flex justify-content-center my-3"></div>
+          <p id="qrInfo"></p>
+          <p id="qrWait" class="d-none text-muted">Tunjukkan QR ke petugas. Sewa dimulai setelah petugas memverifikasi.</p>
+          <button id="returnBtn" type="button" class="btn btn-primary d-none">Kembalikan Kendaraan</button>
+        </div>
+      </div>
+
+      <div id="pane-review" class="tab-pane">
+        <form id="reviewForm" class="d-grid gap-3">
+          <select id="pick" class="form-select"></select>
+          <div><div id="stars"><button type="button" data-star="1" class="star-btn">★</button><button type="button" data-star="2" class="star-btn">★</button><button type="button" data-star="3" class="star-btn">★</button><button type="button" data-star="4" class="star-btn">★</button><button type="button" data-star="5" class="star-btn">★</button></div><p id="caption" class="text-muted mb-0"></p></div>
+          <div class="d-flex flex-wrap gap-2"><button type="button" data-tag class="btn btn-sm btn-outline-secondary rounded-pill">Baterai Awet</button><button type="button" data-tag class="btn btn-sm btn-outline-secondary rounded-pill">Jalur Sejuk &amp; Bersih</button><button type="button" data-tag class="btn btn-sm btn-outline-secondary rounded-pill">Sistem Dock Cepat</button><button type="button" data-tag class="btn btn-sm btn-outline-secondary rounded-pill">Rem Responsif</button><button type="button" data-tag class="btn btn-sm btn-outline-secondary rounded-pill">Petugas Ramah</button></div>
+          <textarea id="comment" rows="3" class="form-control" placeholder="Ceritakan pengalaman Anda..."></textarea>
+          <div id="photoBox" class="photo-box">Klik untuk memilih foto (opsional, maks 5MB)</div>
+          <input id="photoFile" type="file" accept="image/*" hidden>
+          <div class="text-end"><button class="btn btn-primary">Kirim Ulasan</button></div>
+        </form>
+      </div>
+
+    </div></div>
+  </section>
+</main>
+
+<!-- Pop-up perpanjang durasi & SOS -->
+<div class="modal fade" id="extendModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-sm"><div class="modal-content">
+  <div class="modal-header"><h5 class="modal-title">Perpanjang 1 jam?</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+  <div class="modal-body">Biaya tambahan <b id="extendPrice"></b>.</div>
+  <div class="modal-footer"><button id="extendOk" type="button" class="btn btn-primary w-100">Ya, perpanjang</button></div>
+</div></div></div>
+<div class="modal fade" id="sosModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-sm"><div class="modal-content">
+  <div class="modal-header"><h5 class="modal-title text-danger">Pilih jenis darurat</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+  <div class="modal-body d-grid gap-2">
+    <button type="button" data-sos="Baterai Habis Mendadak" class="btn btn-outline-danger">Baterai Habis Mendadak</button>
+    <button type="button" data-sos="Medis / Cedera Pengunjung" class="btn btn-outline-danger">Medis / Cedera Pengunjung</button>
+    <button type="button" data-sos="Rantai Putus / Kendala Mekanik" class="btn btn-outline-danger">Rantai Putus / Kendala Mekanik</button>
+  </div>
+</div></div></div>
+<footer class="bg-white border-top mt-5 py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <p class="fw-bold brand mb-1">Smart Ragunan Ride</p>
+        <p class="small text-muted mb-0">Penyewaan kendaraan ramah lingkungan di Taman Margasatwa Ragunan.</p>
+      </div>
+      <div class="col-md-5">
+        <p class="fw-semibold text-primary mb-1">Lokasi Shelter</p>
+        <p class="small mb-1"><b>Pintu Utara / Pintu Utama</b> &ndash; sekitar 200 meter setelah pintu masuk/loket.</p>
+        <p class="small mb-0"><b>Pintu Barat</b> &ndash; di sekitar area kandang jerapah.</p>
+      </div>
+      <div class="col-md-3">
+        <p class="fw-semibold text-primary mb-1">Menu</p>
+        <p class="small mb-1"><a href="katalog.html">Katalog Kendaraan</a></p>
+        <p class="small mb-0"><a href="dashboard.html">Customer Dashboard</a></p>
+      </div>
+    </div>
+    <p class="text-center small text-muted mt-3 mb-0">&copy; Smart Ragunan Ride</p>
+  </div>
+</footer>
+<!-- Chip akun, tempat notifikasi, dan form login admin (ada di semua halaman) -->
+<div class="position-fixed bottom-0 start-0 m-3 bg-primary text-white rounded-pill shadow d-flex align-items-center gap-2 ps-3 pe-1 py-1 small" style="z-index:1050">
+  <span id="chipName" class="d-none"></span>
+  <button id="logoutBtn" class="btn btn-sm btn-light rounded-pill d-none" type="button">Keluar</button>
+  <a id="chipLogin" href="login.html" class="btn btn-sm btn-light rounded-pill d-none">Masuk / Daftar</a>
+</div>
+<div id="toasts" class="toast-container position-fixed top-0 end-0 p-3" style="margin-top:64px"></div>
+<div class="modal fade" id="adminModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <form id="adminForm" class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Login Admin</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <input id="admUser" class="form-control mb-2" placeholder="Username" autocomplete="username">
+        <input id="admPass" type="password" class="form-control" placeholder="Password" autocomplete="current-password">
+        <p id="admErr" class="text-danger small mt-2 mb-0"></p>
+      </div>
+      <div class="modal-footer"><button class="btn btn-primary w-100">Masuk</button></div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="assets/js/core/storage.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/features/01-auth.js"></script>
+<script src="assets/js/features/15-notifications.js"></script>
+<script src="assets/js/data/bikes.js"></script>
+<script src="assets/js/features/06-qr-booking.js"></script>
+<script src="assets/js/features/07-rental-timer.js"></script>
+<script src="assets/js/features/08-return-bike.js"></script>
+<script src="assets/js/features/09-rental-history.js"></script>
+<script src="assets/js/features/16-reviews.js"></script>
+<script src="assets/js/pages/dashboard.js"></script>
+<script src="assets/js/core/motion.js"></script>
+</body>
+</html>

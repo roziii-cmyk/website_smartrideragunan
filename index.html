@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Smart Ragunan Ride: penyewaan kendaraan ramah lingkungan di Taman Margasatwa Ragunan.">
+  <title>Beranda | Smart Ragunan Ride</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo.jpg" alt="Logo" height="40" class="rounded" onerror="this.remove()">
+        <span class="brand">Smart Ragunan Ride</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Buka navigasi">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="katalog.html">Katalog Kendaraan</a></li>
+          <li class="nav-item" data-only="customer"><a class="nav-link" href="dashboard.html">Customer Dashboard</a></li>
+          <li class="nav-item" data-only="admin"><a class="nav-link" href="admin.html">Dashboard Admin</a></li>
+          <li class="nav-item ms-lg-3">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Pilih peran">
+              <button type="button" data-role="customer" class="btn btn-outline-primary">Customer</button>
+              <button type="button" data-role="admin" class="btn btn-outline-primary">Admin</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <!-- Hero: suasana hijau Ragunan -->
+  <section class="hero hero-ragunan">
+    <div class="hero-leaf hero-leaf-one" aria-hidden="true">🌿</div>
+    <div class="hero-leaf hero-leaf-two" aria-hidden="true">🍃</div>
+    <div class="container hero-inner">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7 hero-copy" data-reveal>
+          <span class="hero-kicker"><i class="bi bi-tree-fill"></i> Explore Nature, Ride with Technology</span>
+          <h1 class="display-4 fw-bold mt-3">Jelajahi Ragunan,<br><span>lebih dekat dengan alam.</span></h1>
+          <p class="hero-description">Nikmati pengalaman berkeliling Taman Margasatwa Ragunan dengan pilihan kendaraan yang praktis, nyaman, dan mudah dipesan secara online.</p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="katalog.html" class="btn btn-hero-primary btn-lg">Jelajahi Kendaraan <i class="bi bi-arrow-right"></i></a>
+            <a href="#peta-parkir" class="btn btn-hero-ghost btn-lg">Lihat Area Ragunan</a>
+          </div>
+          <div class="hero-stats mt-5">
+            <div><strong>9 Jenis</strong><span>Pilihan kendaraan</span></div>
+            <div><strong>2 Shelter</strong><span>Lokasi penyewaan</span></div>
+            <div><strong>1 Tujuan</strong><span>Jelajah lebih seru</span></div>
+          </div>
+        </div>
+        <div class="col-lg-5 hero-visual" data-reveal>
+          <div class="hero-photo-wrap">
+            <img src="assets/img/kendaraan/RGN-SB01.jpg" alt="Jalur rindang dan deretan sepeda di lingkungan taman" class="hero-photo">
+            <div class="photo-caption"><i class="bi bi-geo-alt-fill"></i><span><b>Taman Margasatwa Ragunan</b><small>Temukan pengalaman seru di alam terbuka</small></span></div>
+          </div>
+          <div class="animal-float animal-giraffe" aria-label="Ilustrasi jerapah">🦒</div>
+          <div class="animal-float animal-elephant" aria-label="Ilustrasi gajah">🐘</div>
+          <div class="animal-float animal-deer" aria-label="Ilustrasi rusa">🦌</div>
+          <div class="animal-float animal-orangutan" aria-label="Ilustrasi orangutan">🦧</div>
+        </div>
+      </div>
+      <div class="hero-scroll-hint"><span></span> Gulir untuk menjelajah</div>
+    </div>
+  </section>
+
+  <!-- Keunggulan -->
+  <section class="container py-5">
+    <div class="text-center mb-4"><p class="eyebrow mb-1">Kenapa Smart Ragunan Ride</p><h2 class="fw-bold text-primary">Praktis, Aman, dan Menyenangkan</h2></div>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm"><div class="card-body"><i class="bi bi-phone fs-2 text-success"></i><h3 class="h6 text-primary mt-2">Pesan Online</h3><p class="small text-muted mb-0">Lihat katalog dan pesan dari ponselmu tanpa antre di loket.</p></div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm"><div class="card-body"><i class="bi bi-qr-code fs-2 text-success"></i><h3 class="h6 text-primary mt-2">Ambil dengan QR</h3><p class="small text-muted mb-0">Tunjukkan QR booking ke petugas untuk memulai sewa.</p></div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm"><div class="card-body"><i class="bi bi-stopwatch fs-2 text-success"></i><h3 class="h6 text-primary mt-2">Timer Sewa</h3><p class="small text-muted mb-0">Pantau sisa waktu dan perpanjang durasi kapan saja.</p></div></div></div>
+      <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm"><div class="card-body"><i class="bi bi-shield-check fs-2 text-success"></i><h3 class="h6 text-primary mt-2">Aman &amp; Terpantau</h3><p class="small text-muted mb-0">Kendaraan dipantau petugas, dengan tombol SOS bila terjadi kendala.</p></div></div></div>
+    </div>
+  </section>
+
+  <!-- Kendaraan populer -->
+  <section id="katalog-populer" class="section-soft py-5">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+        <div><p class="eyebrow mb-1">Pilihan Populer</p><h2 class="fw-bold text-primary mb-0">Kendaraan Favorit Pengunjung</h2></div>
+        <a href="katalog.html" class="fw-semibold">Lihat Semua Kendaraan <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div id="homeGrid" class="row g-4"></div>
+    </div>
+  </section>
+
+  <!-- Alur -->
+  <section class="container py-5">
+    <div class="text-center mb-4"><p class="eyebrow mb-1">Cara Menyewa</p><h2 class="fw-bold text-primary">4 Langkah Mudah</h2></div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3"><div class="d-flex flex-column align-items-center text-center gap-2"><div class="step-no">1</div><h3 class="h6 text-primary mb-0">Pilih Kendaraan</h3><p class="small text-muted mb-0">Buka katalog dan pilih kendaraan serta durasi sewa.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="d-flex flex-column align-items-center text-center gap-2"><div class="step-no">2</div><h3 class="h6 text-primary mb-0">Bayar</h3><p class="small text-muted mb-0">Selesaikan pembayaran untuk mendapat QR booking.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="d-flex flex-column align-items-center text-center gap-2"><div class="step-no">3</div><h3 class="h6 text-primary mb-0">Ambil di Shelter</h3><p class="small text-muted mb-0">Tunjukkan QR ke petugas di shelter pilihanmu.</p></div></div>
+      <div class="col-6 col-lg-3"><div class="d-flex flex-column align-items-center text-center gap-2"><div class="step-no">4</div><h3 class="h6 text-primary mb-0">Kembalikan &amp; Beri Rating</h3><p class="small text-muted mb-0">Kembalikan kendaraan lalu ceritakan pengalamanmu.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Shelter & peta parkir -->
+  <section id="peta-parkir" class="section-dark py-5">
+    <div class="container">
+      <div class="text-center mb-4"><p class="eyebrow mb-1" style="color:#92f7c3">Lokasi Penyewaan</p><h2 class="fw-bold">Shelter Penyewaan &amp; Peta Parkir</h2></div>
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card text-body border-0 h-100"><div class="card-body">
+            <h3 class="h5 text-primary">Shelter Penyewaan Kendaraan</h3>
+            <div class="p-3 bg-light rounded mb-2"><p class="fw-bold text-primary mb-1"><i class="bi bi-box-arrow-in-right"></i> Pintu Utara / Pintu Utama</p><p class="small mb-0">Lokasi penyewaan berada tidak jauh (sekitar 200 meter) setelah pintu masuk/loket.</p></div>
+            <div class="p-3 bg-light rounded mb-3"><p class="fw-bold text-primary mb-1"><i class="bi bi-geo-alt"></i> Pintu Barat</p><p class="small mb-0">Lokasi penyewaan berada di sekitar area kandang jerapah.</p></div>
+            <a class="fw-semibold" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Taman+Margasatwa+Ragunan"><i class="bi bi-box-arrow-up-right"></i> Buka di Google Maps</a>
+          </div></div>
+        </div>
+        <div class="col-lg-8">
+          <div class="ratio ratio-16x9 rounded overflow-hidden mb-3"><iframe title="Peta Taman Margasatwa Ragunan" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=106.8120%2C-6.3220%2C106.8290%2C-6.3040&amp;layer=mapnik&amp;marker=-6.3125%2C106.8205"></iframe></div>
+          <div class="bg-white rounded p-2"><svg viewBox="0 0 640 380" class="w-full h-auto" role="img" aria-label="Denah ilustrasi shelter penyewaan Ragunan">
+<rect x="10" y="10" width="620" height="360" rx="18" fill="#e8f5ec" stroke="#1b4332" stroke-width="3"/>
+<path d="M60 70 H580" stroke="#8fbf9f" stroke-width="10" stroke-linecap="round"/><path d="M110 70 V320" stroke="#8fbf9f" stroke-width="10" stroke-linecap="round"/><path d="M110 200 H560" stroke="#8fbf9f" stroke-width="8" stroke-linecap="round"/>
+<ellipse cx="450" cy="270" rx="90" ry="45" fill="#bfe3f2" stroke="#6bb3d1"/><text x="450" y="275" text-anchor="middle" font-size="13" fill="#1b4332">Danau</text>
+<rect x="190" y="215" width="110" height="46" rx="8" fill="#fff3c4" stroke="#d9b94a"/><text x="245" y="243" text-anchor="middle" font-size="13" fill="#1b4332">Kandang Jerapah</text>
+<rect x="270" y="10" width="100" height="26" rx="6" fill="#1b4332"/><text x="320" y="28" text-anchor="middle" font-size="12" fill="#fff">PINTU UTARA / UTAMA</text>
+<text x="320" y="55" text-anchor="middle" font-size="12" fill="#1b4332">Loket</text><path d="M320 36 V60" stroke="#1b4332" stroke-width="2"/>
+<path d="M320 70 V130" stroke="#2d6a4f" stroke-width="3" stroke-dasharray="6 5"/><text x="332" y="104" font-size="12" fill="#2d6a4f">± 200 m</text>
+<circle cx="320" cy="140" r="14" fill="#2d6a4f"/><text x="320" y="145" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">U</text><text x="342" y="145" font-size="13" fill="#1b4332" font-weight="700">Shelter Utara</text>
+<rect x="10" y="150" width="26" height="100" rx="6" fill="#1b4332"/><text x="23" y="205" font-size="12" fill="#fff" text-anchor="middle" transform="rotate(-90 23 200)">PINTU BARAT</text>
+<path d="M36 200 H100" stroke="#2d6a4f" stroke-width="3" stroke-dasharray="6 5"/>
+<circle cx="130" cy="200" r="14" fill="#2d6a4f"/><text x="130" y="205" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">B</text><text x="110" y="232" font-size="13" fill="#1b4332" font-weight="700">Shelter Barat</text>
+<text x="620" y="360" text-anchor="end" font-size="11" fill="#40916c">Denah ilustrasi, tidak berskala</text></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section class="container py-5">
+    <div class="text-center mb-4"><p class="eyebrow mb-1">Testimoni</p><h2 class="fw-bold text-primary">Kata Pengunjung</h2></div>
+    <div id="testiGrid" class="row g-4"><p id="testiEmpty" class="text-center text-muted">Belum ada ulasan. Jadilah yang pertama setelah menyewa!</p></div>
+  </section>
+</main>
+<template id="homeCard">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card h-100 card-hover border-0 shadow-sm">
+      <img data-attr="src:img,alt:title" data-fb class="card-img-top bike-img">
+      <div class="card-body d-flex flex-column">
+        <div class="d-flex justify-content-between gap-2"><h3 class="h5 text-primary" data-f="title"></h3><span class="fw-semibold text-success text-nowrap" data-f="priceText"></span></div>
+        <p class="small text-muted flex-grow-1" data-f="desc"></p>
+        <p class="small mb-2"><i class="bi bi-geo-alt-fill text-success"></i> <span data-f="shelter"></span></p>
+        <a data-attr="href:detailUrl" class="btn btn-primary w-100">Detail &amp; Sewa Sekarang</a>
+      </div>
+    </div>
+  </div>
+</template>
+<template id="testiCard">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-sm"><div class="card-body">
+      <p class="fs-5 mb-1" style="color:#e7c268" data-f="stars"></p>
+      <p class="fst-italic" data-f="quote"></p>
+      <img data-attr="src:photo" alt="Foto ulasan" class="d-none rounded mb-2" height="110">
+      <p class="fw-bold text-primary mb-0" data-f="name"></p>
+      <p class="small text-muted mb-0" data-f="rent"></p>
+    </div></div>
+  </div>
+</template>
+<footer class="bg-white border-top mt-5 py-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <p class="fw-bold brand mb-1">Smart Ragunan Ride</p>
+        <p class="small text-muted mb-0">Penyewaan kendaraan ramah lingkungan di Taman Margasatwa Ragunan.</p>
+      </div>
+      <div class="col-md-5">
+        <p class="fw-semibold text-primary mb-1">Lokasi Shelter</p>
+        <p class="small mb-1"><b>Pintu Utara / Pintu Utama</b> &ndash; sekitar 200 meter setelah pintu masuk/loket.</p>
+        <p class="small mb-0"><b>Pintu Barat</b> &ndash; di sekitar area kandang jerapah.</p>
+      </div>
+      <div class="col-md-3">
+        <p class="fw-semibold text-primary mb-1">Menu</p>
+        <p class="small mb-1"><a href="katalog.html">Katalog Kendaraan</a></p>
+        <p class="small mb-0"><a href="dashboard.html">Customer Dashboard</a></p>
+      </div>
+    </div>
+    <p class="text-center small text-muted mt-3 mb-0">&copy; Smart Ragunan Ride</p>
+  </div>
+</footer>
+<!-- Chip akun, tempat notifikasi, dan form login admin (ada di semua halaman) -->
+<div class="position-fixed bottom-0 start-0 m-3 bg-primary text-white rounded-pill shadow d-flex align-items-center gap-2 ps-3 pe-1 py-1 small" style="z-index:1050">
+  <span id="chipName" class="d-none"></span>
+  <button id="logoutBtn" class="btn btn-sm btn-light rounded-pill d-none" type="button">Keluar</button>
+  <a id="chipLogin" href="login.html" class="btn btn-sm btn-light rounded-pill d-none">Masuk / Daftar</a>
+</div>
+<div id="toasts" class="toast-container position-fixed top-0 end-0 p-3" style="margin-top:64px"></div>
+<div class="modal fade" id="adminModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <form id="adminForm" class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Login Admin</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <input id="admUser" class="form-control mb-2" placeholder="Username" autocomplete="username">
+        <input id="admPass" type="password" class="form-control" placeholder="Password" autocomplete="current-password">
+        <p id="admErr" class="text-danger small mt-2 mb-0"></p>
+      </div>
+      <div class="modal-footer"><button class="btn btn-primary w-100">Masuk</button></div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/core/storage.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/features/01-auth.js"></script>
+<script src="assets/js/features/15-notifications.js"></script>
+<script src="assets/js/data/bikes.js"></script>
+<script src="assets/js/pages/index.js"></script>
+<script src="assets/js/core/motion.js"></script>
+</body>
+</html>

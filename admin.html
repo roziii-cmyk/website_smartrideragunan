@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Smart Ragunan Ride: penyewaan kendaraan ramah lingkungan di Taman Margasatwa Ragunan.">
+  <title>Dashboard Admin | Smart Ragunan Ride</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo.jpg" alt="Logo" height="40" class="rounded" onerror="this.remove()">
+        <span class="brand">Smart Ragunan Ride <small class='text-muted fw-normal'>Admin</small></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Buka navigasi">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="admin.html">Dashboard Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="iot.html">Monitoring IoT</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Lihat Website</a></li>
+          <li class="nav-item ms-lg-3">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Pilih peran">
+              <button type="button" data-role="customer" class="btn btn-outline-primary">Customer</button>
+              <button type="button" data-role="admin" class="btn btn-outline-primary">Admin</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="container py-4">
+  <h1 class="h3 text-primary mb-3">Dashboard Admin</h1>
+
+  <!-- Fitur 10: statistik -->
+  <div class="row g-3 mb-4"><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Total Booking</small><p id="sTotal" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Sewa Berjalan</small><p id="sRunning" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Menunggu Pengambilan</small><p id="sWaiting" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Pendapatan</small><p id="sIncome" class="h4 text-primary mb-0"></p></div></div></div></div>
+
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Verifikasi Cepat (fitur 12)</h2>
+    <div class="input-group">
+      <input id="bookingId" class="form-control" placeholder="Kode booking, mis. BK1234567">
+      <button id="btnVerify" type="button" class="btn btn-primary">Verifikasi Pengambilan</button>
+      <button id="btnReturn" type="button" class="btn btn-success">Konfirmasi Pengembalian</button>
+    </div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Semua Booking (fitur 12)</h2>
+    <div class="table-responsive"><table class="table align-middle">
+      <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jadwal</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <tbody id="bookingRows"></tbody>
+    </table></div>
+    <p id="bookingEmpty" class="d-none mb-0">Belum ada booking.</p>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Kelola Kendaraan (fitur 11)</h2>
+    <div class="table-responsive"><table class="table align-middle">
+      <thead><tr><th>Kode</th><th>Nama</th><th>Tarif</th><th>Status</th><th></th></tr></thead>
+      <tbody id="bikeRows"></tbody>
+    </table></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Ulasan &amp; Rating (<span id="reviewAvg"></span>)</h2>
+    <div id="reviewList"></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Peringatan IoT &amp; SOS (fitur 14, 15)</h2>
+    <div id="events"></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Telemetri ESP32 (simulasi, deteksi otomatis)</h2>
+    <p class="small text-muted">Peringatan getaran, keluar perimeter, dan baterai rendah muncul otomatis. <a href="iot.html">Buka Monitoring IoT</a></p>
+    <pre id="telemetryLog" class="telemetry mb-0 d-none"></pre>
+    </div></section>
+</main>
+<!-- Chip akun, tempat notifikasi, dan form login admin (ada di semua halaman) -->
+<div class="position-fixed bottom-0 start-0 m-3 bg-primary text-white rounded-pill shadow d-flex align-items-center gap-2 ps-3 pe-1 py-1 small" style="z-index:1050">
+  <span id="chipName" class="d-none"></span>
+  <button id="logoutBtn" class="btn btn-sm btn-light rounded-pill d-none" type="button">Keluar</button>
+  <a id="chipLogin" href="login.html" class="btn btn-sm btn-light rounded-pill d-none">Masuk / Daftar</a>
+</div>
+<div id="toasts" class="toast-container position-fixed top-0 end-0 p-3" style="margin-top:64px"></div>
+<div class="modal fade" id="adminModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <form id="adminForm" class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Login Admin</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button></div>
+      <div class="modal-body">
+        <input id="admUser" class="form-control mb-2" placeholder="Username" autocomplete="username">
+        <input id="admPass" type="password" class="form-control" placeholder="Password" autocomplete="current-password">
+        <p id="admErr" class="text-danger small mt-2 mb-0"></p>
+      </div>
+      <div class="modal-footer"><button class="btn btn-primary w-100">Masuk</button></div>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/core/storage.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="assets/js/features/01-auth.js"></script>
+<script src="assets/js/features/15-notifications.js"></script>
+<script src="assets/js/data/bikes.js"></script>
+<script src="assets/js/features/14-iot-activity.js"></script>
+<script src="assets/js/features/10-admin-dashboard.js"></script>
+<script src="assets/js/features/08-return-bike.js"></script>
+<script src="assets/js/features/11-admin-bikes.js"></script>
+<script src="assets/js/features/12-admin-bookings.js"></script>
+<script src="assets/js/features/16-reviews.js"></script>
+<script src="assets/js/pages/admin.js"></script>
+<script src="assets/js/core/motion.js"></script>
+</body>
+</html>

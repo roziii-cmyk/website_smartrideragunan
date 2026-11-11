@@ -1,0 +1,207 @@
+/* ===== Smart Ragunan Ride - tema hijau di atas Bootstrap 5 ===== */
+:root {
+  --eco-dark: #012d1d; --eco: #1b4332; --eco-mid: #006c48; --eco-mint: #92f7c3; --eco-soft: #f1f4f9; --eco-gold: #e7c268;
+  --bs-primary: #1b4332; --bs-primary-rgb: 27, 67, 50;
+  --bs-success: #006c48; --bs-success-rgb: 0, 108, 72;
+  --bs-danger: #ba1a1a; --bs-danger-rgb: 186, 26, 26;
+  --bs-body-bg: #f7f9ff; --bs-body-color: #181c20;
+  --bs-body-font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --bs-link-color: #006c48; --bs-link-hover-color: #012d1d;
+}
+html { scroll-behavior: smooth; }
+body { padding-bottom: 0; }
+.btn-primary { --bs-btn-bg: #1b4332; --bs-btn-border-color: #1b4332; --bs-btn-hover-bg: #012d1d; --bs-btn-hover-border-color: #012d1d; --bs-btn-active-bg: #012d1d; --bs-btn-active-border-color: #012d1d; --bs-btn-disabled-bg: #1b4332; --bs-btn-disabled-border-color: #1b4332; }
+.btn-outline-primary { --bs-btn-color: #1b4332; --bs-btn-border-color: #1b4332; --bs-btn-hover-bg: #1b4332; --bs-btn-hover-border-color: #1b4332; --bs-btn-active-bg: #1b4332; --bs-btn-active-border-color: #1b4332; }
+.btn-success { --bs-btn-bg: #006c48; --bs-btn-border-color: #006c48; --bs-btn-hover-bg: #00513a; --bs-btn-hover-border-color: #00513a; --bs-btn-active-bg: #00513a; --bs-btn-active-border-color: #00513a; }
+.btn-outline-success { --bs-btn-color: #006c48; --bs-btn-border-color: #006c48; --bs-btn-hover-bg: #006c48; --bs-btn-hover-border-color: #006c48; --bs-btn-active-bg: #006c48; --bs-btn-active-border-color: #006c48; }
+.text-primary { color: #1b4332 !important; }
+.nav-pills { --bs-nav-pills-link-active-bg: #1b4332; }
+
+.navbar .nav-link { color: var(--eco); font-weight: 600; padding-inline: .8rem !important; }
+.navbar .nav-link:hover { color: var(--eco-mid); }
+.navbar .nav-link.active { color: #fff; background: var(--eco); border-radius: 2rem; }
+.brand { color: var(--eco); font-weight: 800; }
+
+.hero { background: linear-gradient(135deg, #012d1d 0%, #1b4332 60%, #006c48 100%); color: #fff; }
+.hero img { border-radius: 1.25rem; box-shadow: 0 12px 30px rgba(0, 0, 0, .3); }
+.eyebrow { color: var(--eco-mid); letter-spacing: .08em; text-transform: uppercase; font-weight: 700; font-size: .8rem; }
+.section-soft { background: var(--eco-soft); }
+.section-dark { background: var(--eco); color: #fff; }
+
+.card-hover { transition: transform .2s, box-shadow .2s; }
+.card-hover:hover { transform: translateY(-3px); box-shadow: 0 .6rem 1.2rem rgba(0, 0, 0, .12) !important; }
+.bike-img { height: 210px; object-fit: cover; background: #ebeef3; }
+.step-no { width: 44px; height: 44px; border-radius: 50%; background: var(--eco-mint); color: var(--eco); font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+.timer { font-size: 3rem; font-weight: 800; color: var(--eco); font-variant-numeric: tabular-nums; }
+.avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--eco); color: #fff; font-size: 1.6rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.star-btn { background: none; border: 0; font-size: 2.2rem; line-height: 1; padding: 0 .15rem; }
+.photo-box { border: 2px dashed #c1c8c2; border-radius: .8rem; padding: 1.2rem; text-align: center; cursor: pointer; }
+.telemetry { background: var(--eco); color: #fff; border-radius: .8rem; padding: .8rem; font-size: .85rem; overflow-x: auto; }
+#bikeGrid, #homeGrid { --bs-gutter-y: 1.5rem; }
+
+
+/* ===== Ragunan Nature Experience & Motion ===== */
+:root{
+  --eco-dark:#153b2b;
+  --eco:#24543a;
+  --eco-mid:#477b50;
+  --eco-mint:#b8d3a7;
+  --eco-soft:#f3f6ef;
+  --eco-gold:#e7c77b;
+  --bs-body-bg:#fbfcf8;
+}
+body{background:#fbfcf8;color:#24352a}
+.navbar{backdrop-filter:blur(14px);box-shadow:0 5px 22px rgba(20,55,35,.06)}
+.navbar .nav-link{transition:color .25s ease,background .25s ease,transform .25s ease}
+.navbar .nav-link:hover{transform:translateY(-2px)}
+.hero-ragunan{
+  position:relative;isolation:isolate;overflow:hidden;color:#fff;
+  background:
+    linear-gradient(90deg,rgba(10,39,25,.94) 0%,rgba(13,49,30,.84) 47%,rgba(12,43,28,.42) 100%),
+    url('../img/RGN-SB01.jpg') center 48%/cover no-repeat;
+  min-height:650px;padding:5.5rem 0 4.5rem;
+}
+.hero-ragunan:before,.hero-ragunan:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}
+.hero-ragunan:before{width:360px;height:360px;right:-130px;top:-170px;background:rgba(173,207,137,.13)}
+.hero-ragunan:after{width:280px;height:280px;left:-130px;bottom:-160px;background:rgba(173,207,137,.12)}
+.hero-inner{position:relative}
+.hero-kicker{display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1rem;border:1px solid rgba(255,255,255,.25);border-radius:50px;background:rgba(255,255,255,.1);color:#d8edc9;font-size:.82rem;font-weight:700;letter-spacing:.04em}
+.hero-ragunan h1{line-height:1.13;letter-spacing:-.04em;max-width:720px}
+.hero-ragunan h1 span{color:#c7e3a9}
+.hero-description{font-size:1.08rem;line-height:1.8;color:rgba(255,255,255,.82);max-width:590px}
+.btn-hero-primary{background:#d6e8bd;color:#173b28;border:1px solid #d6e8bd;border-radius:50px;padding:.85rem 1.4rem;font-weight:800;box-shadow:0 12px 25px rgba(0,0,0,.14);transition:transform .25s,box-shadow .25s}
+.btn-hero-primary:hover{background:#e7f1d8;color:#173b28;transform:translateY(-3px);box-shadow:0 16px 30px rgba(0,0,0,.2)}
+.btn-hero-ghost{border:1px solid rgba(255,255,255,.55);color:#fff;border-radius:50px;padding:.85rem 1.4rem;font-weight:700;transition:background .25s,transform .25s}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.14);color:#fff;transform:translateY(-3px)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:2.2rem}
+.hero-stats div{display:flex;flex-direction:column;gap:.15rem}
+.hero-stats strong{font-size:1.35rem;color:#fff}
+.hero-stats span{font-size:.78rem;color:rgba(255,255,255,.7)}
+.hero-visual{position:relative;padding:1rem 1.25rem 2rem}
+.hero-photo-wrap{position:relative;border:7px solid rgba(255,255,255,.88);border-radius:28px;box-shadow:0 25px 65px rgba(0,0,0,.32);transform:rotate(1.5deg);animation:photoFloat 6s ease-in-out infinite}
+.hero-photo{display:block;width:100%;height:370px;object-fit:cover;border-radius:19px}
+.photo-caption{position:absolute;left:16px;right:16px;bottom:16px;display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;border-radius:16px;background:rgba(255,255,255,.94);color:#21452e;box-shadow:0 8px 25px rgba(0,0,0,.13)}
+.photo-caption>i{font-size:1.35rem;color:#477b50}
+.photo-caption span{display:flex;flex-direction:column;font-size:.82rem}
+.photo-caption small{color:#6d7d6e}
+.animal-float{position:absolute;display:grid;place-items:center;width:65px;height:65px;border-radius:22px;background:rgba(255,255,255,.96);font-size:2rem;box-shadow:0 12px 28px rgba(0,0,0,.2);animation:animalBob 4s ease-in-out infinite}
+.animal-giraffe{top:-14px;right:-3px;transform:rotate(8deg)}
+.animal-elephant{left:-12px;top:42%;animation-delay:-1s}
+.animal-deer{right:5px;bottom:-2px;animation-delay:-2s}
+.animal-orangutan{left:15%;bottom:-22px;animation-delay:-.6s}
+.hero-leaf{position:absolute;z-index:-1;opacity:.25;font-size:5rem;animation:leafSway 7s ease-in-out infinite}
+.hero-leaf-one{right:5%;top:8%}.hero-leaf-two{left:2%;bottom:8%;animation-delay:-3s}
+.hero-scroll-hint{position:absolute;bottom:-2.7rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.65rem;color:rgba(255,255,255,.65);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.hero-scroll-hint span{height:25px;width:15px;border:1px solid rgba(255,255,255,.55);border-radius:20px;position:relative}
+.hero-scroll-hint span:after{content:"";position:absolute;top:5px;left:5px;width:3px;height:5px;border-radius:5px;background:#d6e8bd;animation:scrollDot 1.5s infinite}
+.eyebrow{color:#63865b}
+.section-soft{background:#f1f5ed}
+.card{border-radius:1.1rem;overflow:hidden}
+.card-hover{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.card-hover:hover{transform:translateY(-8px);box-shadow:0 18px 35px rgba(28,65,40,.13)!important}
+.bike-img{transition:transform .55s ease}
+.card-hover:hover .bike-img{transform:scale(1.035)}
+/* Reveal saat elemen memasuki layar */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.75,.25,1)}
+[data-reveal].is-visible{opacity:1;transform:translateY(0)}
+.hero-copy[data-reveal]{transition-delay:.08s}.hero-visual[data-reveal]{transition-delay:.2s}
+.feature-card .card-body>i{display:inline-block;transition:transform .35s}
+.feature-card:hover .card-body>i{transform:translateY(-5px) rotate(-7deg)}
+@keyframes photoFloat{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@keyframes animalBob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes leafSway{0%,100%{rotate:-8deg}50%{rotate:9deg}}
+@keyframes scrollDot{0%{transform:translateY(0);opacity:1}100%{transform:translateY(9px);opacity:0}}
+@media(max-width:767.98px){
+ .hero-ragunan{min-height:auto;padding:4rem 0 5rem;background-position:55% center}
+ .hero-ragunan h1{font-size:2.55rem}
+ .hero-description{font-size:.98rem}
+ .hero-visual{margin-top:1rem;padding:1rem 1rem 2rem}
+ .hero-photo{height:270px}
+ .animal-float{width:52px;height:52px;border-radius:17px;font-size:1.6rem}
+ .animal-elephant{left:-5px}.animal-giraffe{right:-2px}
+ .hero-stats{gap:1.2rem}
+ .hero-scroll-hint{bottom:-3rem;white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ [data-reveal]{opacity:1;transform:none}
+}
+
+/* ==========================================================
+   TAMBAHAN - tempel di BARIS PALING BAWAH assets/css/style.css
+   (tidak mengubah kode lama, hanya menimpa lewat urutan)
+   ========================================================== */
+
+/* 1) Foto latar hero: path diperbaiki (+ cadangan warna bila foto tidak ada) */
+.hero-ragunan{
+  background:
+    linear-gradient(90deg,rgba(10,39,25,.94) 0%,rgba(13,49,30,.80) 47%,rgba(12,43,28,.38) 100%),
+    url('../img/kendaraan/RGN-SB01.jpg') center 48%/cover no-repeat,
+    linear-gradient(135deg,#153b2b,#24543a 60%,#477b50);
+  border-radius:0 0 2.5rem 2.5rem;
+}
+
+/* 2) Konten hero & seksi lain tampil otomatis tanpa menunggu JavaScript */
+@keyframes revealUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+[data-reveal]{
+  opacity:1;
+  transform:none;
+  animation:revealUp .9s cubic-bezier(.2,.75,.25,1) both;
+}
+.hero-copy[data-reveal]{animation-delay:.1s}
+.hero-visual[data-reveal]{animation-delay:.3s}
+
+/* Browser yang mendukung: elemen di bawah layar muncul saat digulir */
+@supports (animation-timeline: view()){
+  [data-reveal]{
+    animation:revealUp linear both;
+    animation-timeline:view();
+    animation-range:entry 0% cover 28%;
+    animation-delay:0s;
+  }
+}
+
+/* 3) Percantik bagian hero */
+.hero-inner::before{
+  content:"";position:absolute;inset:-40px 0 0 0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 30%,rgba(214,232,189,.55) 0 2px,transparent 3px),
+    radial-gradient(circle at 28% 72%,rgba(214,232,189,.45) 0 2px,transparent 3px),
+    radial-gradient(circle at 46% 18%,rgba(255,255,255,.45) 0 1.5px,transparent 3px),
+    radial-gradient(circle at 63% 80%,rgba(214,232,189,.45) 0 2px,transparent 3px),
+    radial-gradient(circle at 82% 38%,rgba(255,255,255,.4) 0 1.5px,transparent 3px),
+    radial-gradient(circle at 92% 70%,rgba(214,232,189,.5) 0 2px,transparent 3px);
+  animation:firefly 5s ease-in-out infinite alternate;
+}
+@keyframes firefly{
+  from{opacity:.35;transform:translateY(0)}
+  to{opacity:1;transform:translateY(-14px)}
+}
+
+.hero-ragunan h1 span{
+  background:linear-gradient(90deg,#d6e8bd,#f3e7a4,#b8d3a7);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
+.hero-kicker{backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.btn-hero-primary{animation:ctaPulse 2.6s ease-in-out infinite}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 12px 25px rgba(0,0,0,.14),0 0 0 0 rgba(214,232,189,.55)}
+  50%{box-shadow:0 12px 25px rgba(0,0,0,.14),0 0 0 12px rgba(214,232,189,0)}
+}
+.hero-stats div{
+  padding:.7rem 1.1rem;border-radius:1rem;
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(6px);
+}
+.hero-photo-wrap{background:rgba(255,255,255,.88)}
+.hero-photo{background:linear-gradient(135deg,#477b50,#153b2b);min-height:270px}
+
+@media(max-width:767.98px){
+  .hero-ragunan{border-radius:0 0 1.6rem 1.6rem}
+  .hero-stats div{padding:.55rem .8rem}
+}
