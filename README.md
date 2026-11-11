@@ -1,12 +1,44 @@
 # Ragunan Smart Ride
 
-Jalankan: buka folder di VS Code > klik kanan index.html > "Open with Live Server"
-(atau terminal: python -m http.server 8000 lalu buka http://localhost:8000)
+Website untuk layanan penyewaan sepeda di Taman Margasatwa Ragunan yang dirancang untuk memudahkan pengunjung melakukan pemesanan dan penyewaan sepeda.
 
-- Customer: daftar/login di login.html
-- Admin: tombol "Admin" di kanan atas > username `admin`, password `admin123` (ubah hash di assets/js/core/ui.js)
-- Logo: timpa assets/img/logo.jpg | Foto kendaraan: lihat assets/img/kendaraan/README.txt
-- Penjelasan struktur & alur: PENJELASAN.md
-Butuh internet (Bootstrap, font, ikon, library QR, peta).
+## Cara Menjalankan Website
 
-Struktur: kerangka tampilan ada di file .html; JavaScript (assets/js) hanya mengisi data dan memproses aksi.
+1. Buka folder project menggunakan VS Code.
+2. Klik kanan pada file `index.html`.
+3. Pilih Open with Live Server.
+
+Alternatif menggunakan Python:
+
+    python -m http.server 8000
+
+Kemudian buka http://localhost:8000 melalui browser.
+
+## Fitur Website
+
+- Registrasi dan login customer.
+- Pemesanan dan penyewaan sepeda.
+- Dashboard customer.
+- Dashboard admin.
+- Pengelolaan data penyewaan.
+- Informasi kendaraan dan layanan.
+
+## Teknologi
+
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+
+## Struktur Project
+
+- `index.html`: Halaman utama.
+- `login.html`: Halaman login customer.
+- `assets/css/`: File CSS.
+- `assets/js/`: File JavaScript.
+- `assets/img/`: Penyimpanan gambar dan logo.
+- `PENJELASAN.md`: Penjelasan struktur dan alur website.
+
+## Catatan
+
+Website membutuhkan koneksi internet untuk memuat beberapa library eksternal, seperti Bootstrap, font, ikon, QR Code, dan peta.
