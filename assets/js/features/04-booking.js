@@ -16,7 +16,7 @@ function openBooking(code) {
 }
 
 // hitung harga: tarif x jumlah + jaminan (jika ada)
-const priceOf = () => ({ sub: cur.price * qty, total: cur.price * qty + cur.deposit, label: qty + ' ' + UNIT_LABEL[cur.unit] });
+const priceOf = () => ({ sub: cur.price * qty, total: cur.price * qty, label: qty + ' ' + UNIT_LABEL[cur.unit] });
 function showTotal() {
   const t = priceOf();
   document.querySelectorAll('.duration-pill').forEach(p => {
@@ -26,16 +26,16 @@ function showTotal() {
   });
   $('calcHoursLabel').textContent = t.label; $('calcBasePrice').textContent = RSR.rp(cur.price);
   $('calcSubtotal').textContent = RSR.rp(t.sub); $('calcTotalPayment').textContent = RSR.rp(t.total);
-  $('calcDeposit').textContent = RSR.rp(cur.deposit); $('depositRow').classList.toggle('d-none', !cur.deposit); // sembunyikan baris jaminan jika 0
+  if ($('depositRow')) $('depositRow').classList.add('d-none');
 }
 // simpan pesanan lalu lanjut ke halaman pembayaran
 function confirmBooking() {
   if (!RSR.require('user')) return;
-  const t = priceOf(), id = 'BK' + Date.now().toString().slice(-7);
+  const t = priceOf(), id = 'BK' + Date.now().toString().slice(-8) + Math.floor(100 + Math.random() * 900);
   RSR.saveBooking({
     id, user: RSR.user().email, name: $('custName').value || RSR.user().name, phone: $('custPhone').value,
     code: cur.code, title: cur.title, shelter: cur.shelter, qty, label: t.label, hours: cur.unit === 'jam' ? qty : 1,
-    date: $('rentalDate').value, time: $('rentalStartTime').value || '09:00', total: t.total, status: 'menunggu_bayar', created: Date.now()
+    date: $('rentalDate').value, time: $('rentalStartTime').value || '09:00', total: t.total, status: 'menunggu_bayar', paymentStatus: 'belum', isPaymentDraft: true, draftSavedAt: Date.now(), created: Date.now()
   });
   location.href = 'pembayaran.html?id=' + id;
 }

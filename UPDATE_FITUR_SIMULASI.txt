@@ -1,0 +1,31 @@
+UPDATE RAGUNAN SMART RIDE - SIMULASI FRONTEND
+
+Perubahan:
+1. Pembayaran QRIS/Virtual Account memiliki tombol simulasi berhasil; status paymentStatus menjadi 'lunas'.
+2. Dashboard admin menampilkan LUNAS (hijau) atau BELUM (merah).
+3. Fitur refundable dihapus dari kalkulasi booking baru.
+4. Admin dapat menambahkan customer offline ke localStorage.
+5. Admin dapat menambahkan kendaraan dan foto (JPG/PNG/WEBP maksimal 2 MB).
+6. Admin mendapat tabel monitoring berdasarkan ID booking dan timer mulai penyewaan.
+7. Timer penyewaan tetap mulai saat admin menekan Setujui & Mulai Sewa.
+
+Batasan:
+- Seluruhnya simulasi frontend, bukan pembayaran sungguhan.
+- localStorage berlaku pada browser/perangkat yang sama; tidak menyinkronkan perangkat customer dan admin.
+- Foto kendaraan disimpan sebagai data URL di localStorage; ukuran dan kapasitas browser membatasi jumlah foto.
+- Tidak ada backend, MySQL, webhook, atau integrasi ESP32.
+
+UPDATE LANJUTAN:
+- Form customer offline kini meminta kendaraan dari daftar katalog dan durasi/jumlah. Saat disimpan, sistem membuat booking offline dengan kode booking unik, status LUNAS (manual), dan timer langsung berjalan untuk monitoring admin.
+- Dashboard customer menampilkan satu kartu timer untuk setiap booking yang berstatus berjalan.
+- Setiap booking aktif/menunggu verifikasi memiliki QR tersendiri yang berisi ID booking masing-masing.
+- Sesi login disimpan pada sessionStorage per tab, bukan localStorage bersama. Ini mencegah sesi admin dan customer saling menimpa ketika dibuka pada tab Chrome/Edge yang berbeda. Setelah update, login ulang pada masing-masing tab.
+- Perpanjangan 1 jam menampilkan gambar QRIS simulasi atau nomor Virtual Account simulasi. Pembayaran simulasi menjadi LUNAS dan durasi baru bertambah setelah disetujui admin.
+- Seluruh data tetap simulasi berbasis localStorage; data booking dapat terbaca antar-tab pada browser/origin yang sama melalui event storage. Tidak ada transaksi uang sungguhan atau sinkronisasi lintas perangkat.
+
+
+PEMBARUAN TERBARU:
+- Draf pembayaran booking langsung tersimpan sebagai status menunggu_bayar / BELUM BAYAR dan tidak otomatis dibatalkan saat customer meninggalkan halaman pembayaran. Customer dapat melanjutkan dari Dashboard / Riwayat Peminjaman.
+- Admin dapat menghapus kendaraan dari katalog; data riwayat booking lama tetap tersimpan.
+- Angka jenis kendaraan di beranda dihitung dari kategori kendaraan dengan status Tersedia.
+- Keranjang mendukung pengaturan durasi/jumlah per kendaraan (1-24 unit), subtotal dan total otomatis dihitung.

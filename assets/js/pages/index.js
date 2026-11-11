@@ -1,3 +1,8 @@
+// Hitung kategori kendaraan yang masih tersedia secara dinamis.
+const availableTypes = new Set(BIKES.filter(b => b.status === 'Tersedia').map(b => b.cat));
+const typeCountEl = $('homeVehicleTypeCount');
+if (typeCountEl) typeCountEl.textContent = availableTypes.size + ' Jenis';
+
 // ===== BERANDA: 3 kendaraan populer + testimoni dari ulasan asli =====
 // Kerangka kartu ada di index.html (<template id="homeCard"> dan <template id="testiCard">).
 const POPULAR = ['RGN-EB03', 'RGN-SG02', 'RGN-BG06'];

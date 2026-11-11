@@ -10,7 +10,7 @@ document.querySelectorAll('[data-only]').forEach(el => el.classList.toggle('d-no
 document.querySelectorAll('[data-role]').forEach(b => {
   b.classList.toggle('active', (b.dataset.role === 'admin') === isAdmin);
   b.onclick = () => {
-    if (b.dataset.role === 'customer') { if (isAdmin) localStorage.removeItem('rsr_session'); location.href = 'index.html'; }
+    if (b.dataset.role === 'customer') { if (isAdmin) sessionStorage.removeItem('rsr_session_tab'); location.href = 'index.html'; }
     else if (isAdmin) location.href = 'admin.html'; else adminLogin();
   };
 });

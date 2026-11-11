@@ -92,6 +92,7 @@
     </div>
   </section>
 
+  <section class="container pb-3"><div class="card border-0 shadow-sm"><div class="card-body"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h2 class="h5 text-primary mb-1"><i class="bi bi-basket"></i> Keranjang Kendaraan</h2><p class="small text-muted mb-0">Pilih beberapa kendaraan, lalu checkout sekaligus.</p></div><span class="badge text-bg-primary" id="cartCount">0 item</span></div><div id="cartItems" class="small mt-3">Keranjang masih kosong.</div><div class="d-flex justify-content-between align-items-center border-top pt-3 mt-3"><strong>Total pembayaran</strong><strong class="fs-5 text-primary" id="cartTotal">Rp 0</strong></div><div class="text-end mt-2"><button id="cartCheckout" class="btn btn-primary" disabled>Checkout &amp; Bayar</button></div></div></div></section>
   <section class="container pb-5">
     <div id="bikeGrid" class="row g-4"></div>
     <p id="emptyMsg" class="d-none text-center text-muted py-4">Tidak ada kendaraan yang cocok.</p>
@@ -138,7 +139,7 @@
           <div class="d-flex justify-content-between"><span>Tarif</span><span id="calcBasePrice"></span></div>
           <div class="d-flex justify-content-between"><span>Jumlah</span><span id="calcHoursLabel"></span></div>
           <div class="d-flex justify-content-between"><span>Subtotal</span><span id="calcSubtotal"></span></div>
-          <div class="d-flex justify-content-between" id="depositRow"><span>Jaminan (refundable)</span><span id="calcDeposit"></span></div>
+          <div class="d-none" id="depositRow"><span id="calcDeposit"></span></div>
         </div>
         <div class="d-flex justify-content-between fw-bold fs-5 mt-2"><span>Total</span><span id="calcTotalPayment"></span></div>
       </div>
@@ -159,6 +160,7 @@
           <div><small class="text-muted" data-f="priceNote"></small><div class="fs-5 fw-bold text-primary"><span data-f="priceText"></span> <small class="fs-6 fw-normal text-muted" data-f="unitText"></small></div></div>
           <button type="button" class="btn btn-primary" data-f="btnText"></button>
         </div>
+        <button type="button" class="btn btn-outline-success w-100 mt-2" data-cart-add=""> <i class="bi bi-cart-plus"></i> Masukkan Keranjang</button>
         <a data-attr="href:detailUrl" class="small text-center mt-2">Lihat detail</a>
       </div>
     </article>

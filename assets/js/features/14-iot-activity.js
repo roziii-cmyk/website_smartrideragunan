@@ -10,8 +10,9 @@ function alertOnce(key, text, type, ms = 60000) {
   cool[key] = Date.now(); RSR.event(text, type);
 }
 // 1 pembacaan sensor + aturan deteksi. force: 'shake' | 'geofence' untuk uji coba
-function scan(bike, rented, force) {
-  const prev = RSR.get('iotReadings', {})[bike.code];
+function scan(bike, rented, force, readingKey = bike.code) {
+  const readings = RSR.get('iotReadings', {});
+  const prev = readings[readingKey] || readings[bike.code];
   const outside = rented && (force === 'geofence' || Math.random() < 0.003);
   // Koordinat demo di sekitar Ragunan; untuk lokasi nyata, hubungkan ke modul GPS.
   const center = { lat: -6.3125, lng: 106.8200 };
@@ -20,31 +21,43 @@ function scan(bike, rented, force) {
   const latitude = +(center.lat + Math.cos(angle) * radius).toFixed(6);
   const longitude = +(center.lng + Math.sin(angle) * radius).toFixed(6);
   const r = {
-    code: bike.code, dock: !rented,                                               // sensor IR: unit ada di slot dock?
+    code: bike.code, dock: !rented,
     accel: +(9.81 + Math.random() * 0.3 + (force === 'shake' || Math.random() < 0.005 ? 3 + Math.random() * 5 : 0)).toFixed(2),
-    outside,                                                                       // keluar area Ragunan?
-    latitude, longitude, locationTime: Date.now(),
+    outside, latitude, longitude, locationTime: Date.now(),
     activityStatus: outside ? 'Keluar dari area yang diizinkan' : (rented ? 'Sedang digunakan' : 'Terparkir'),
     battery: Math.max(5, (prev?.battery ?? 60 + Math.floor(Math.random() * 40)) - (Math.random() < 0.05 ? 1 : 0)), t: Date.now()
   };
-  // --- aturan deteksi otomatis ---
-  if (r.dock && r.accel > IOT_LIMIT) alertOnce('shake' + r.code, 'Getaran mencurigakan terdeteksi pada ' + r.code + ' saat terparkir di dock', 'danger');
-  if (r.outside) alertOnce('geo' + r.code, r.code + ' keluar dari perimeter Ragunan (geofence). Koordinat: ' + r.latitude + ', ' + r.longitude, 'danger');
-  if (r.battery <= 20) alertOnce('bat' + r.code, 'Baterai ' + r.code + ' rendah (' + r.battery + '%)', 'info', 300000);
+  if (r.dock && r.accel > IOT_LIMIT) alertOnce('shake' + readingKey, 'Getaran mencurigakan terdeteksi pada ' + bike.code + ' saat terparkir di dock', 'danger');
+  if (r.outside) alertOnce('geo' + readingKey, bike.code + ' keluar dari perimeter Ragunan. Koordinat: ' + r.latitude + ', ' + r.longitude, 'danger');
+  if (r.battery <= 20) alertOnce('bat' + readingKey, 'Baterai ' + bike.code + ' rendah (' + r.battery + '%)', 'info', 300000);
   return r;
 }
 function scanFleet(force = {}) {
-  const activeBookings = RSR.bookings().filter(b => b.status === 'berjalan');
-  const all = RSR.get('iotReadings', {});
-  BIKES.forEach(b => {
-    const booking = activeBookings.find(x => x.code === b.code);
-    const reading = scan(b, Boolean(booking), force[b.code]);
-    reading.renterName = booking?.name || booking?.customerName || '—';
-    reading.bookingId = booking?.id || '—';
-    reading.bookingCode = booking?.code || b.code;
-    reading.rentalStartedAt = booking?.startedAt || booking?.createdAt || null;
-    reading.rentalHours = booking?.hours || null;
-    all[b.code] = reading;
+  // Satu record sensor per booking aktif, sehingga kendaraan sejenis yang disewa
+  // oleh customer berbeda tetap memiliki lokasi dan marker masing-masing.
+  const activeBookings = RSR.bookings().filter(b => b.status === 'berjalan' && (b.paymentStatus === 'lunas' || b.offline === true));
+  const previous = RSR.get('iotReadings', {});
+  const all = {};
+  activeBookings.forEach(booking => {
+    const bike = BIKES.find(item => item.code === booking.code) || {
+      code: booking.code || 'KENDARAAN', title: booking.vehicleName || booking.bikeName || 'Kendaraan'
+    };
+    const key = String(booking.id);
+    const reading = scan(bike, true, force[key], key);
+    reading.bookingId = key;
+    reading.renterName = booking.name || booking.customerName || 'Customer';
+    reading.bookingSource = booking.offline ? 'Offline / Manual' : 'Online';
+    reading.bookingCode = booking.code || bike.code;
+    reading.rentalStartedAt = booking.startedAt || booking.created || booking.createdAt || null;
+    reading.rentalHours = booking.hours || booking.duration || null;
+    all[key] = reading;
+  });
+  // Simpan record legacy per kode kendaraan agar widget telemetri dashboard lama
+  // tetap bekerja, tanpa menjadikannya sumber marker peta.
+  BIKES.forEach(bike => {
+    const booking = activeBookings.find(item => item.code === bike.code);
+    if (booking && all[String(booking.id)]) all[bike.code] = { ...all[String(booking.id)] };
+    else if (previous[bike.code]) all[bike.code] = { ...previous[bike.code], dock: true, activityStatus: 'Terparkir', bookingId: null, renterName: null };
   });
   RSR.set('iotReadings', all);
 }

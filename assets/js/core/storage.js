@@ -11,7 +11,7 @@ const RSR = (() => {
     esc: t => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])),
 
     // --- akun & sesi ---
-    user: () => get('session', null),
+    user: () => { try { return JSON.parse(sessionStorage.getItem('rsr_session_tab') || 'null'); } catch { return null; } },
     register(name, email, pass) {
       const users = get('users', []);
       if (users.some(u => u.email === email)) return false;
@@ -22,14 +22,14 @@ const RSR = (() => {
       const users = get('users', []), u = users.find(x => x.email === email && x.pass === pass);
       if (!u) return null;
       u.id = u.id || 'RGN-' + Math.floor(10000 + Math.random() * 90000); u.joined = u.joined || Date.now(); set('users', users); // akun lama dilengkapi
-      set('session', { name: u.name, email: u.email, role: 'user', id: u.id, joined: u.joined });
+      sessionStorage.setItem('rsr_session_tab', JSON.stringify({ name: u.name, email: u.email, role: 'user', id: u.id, joined: u.joined }));
       return u;
     },
-    loginAdmin: () => set('session', { name: 'Admin Ragunan', email: 'admin@ragunan.id', role: 'admin' }),
-    logout() { localStorage.removeItem('rsr_session'); location.href = 'login.html'; },
+    loginAdmin: () => sessionStorage.setItem('rsr_session_tab', JSON.stringify({ name: 'Admin Ragunan', email: 'admin@ragunan.id', role: 'admin' })),
+    logout() { sessionStorage.removeItem('rsr_session_tab'); location.href = 'login.html'; },
     // dipanggil di awal halaman yang dibatasi: role 'user' = customer, 'admin' = admin
     require(role) {
-      const u = get('session', null);
+      const u = this.user();
       if (!u) { location.href = 'login.html?next=' + page(); return false; }
       if (role && u.role !== role) { location.href = u.role === 'admin' ? 'admin.html' : 'index.html'; return false; }
       return true;
@@ -37,7 +37,7 @@ const RSR = (() => {
 
     // --- booking: status berurutan menunggu_bayar > dibayar > berjalan > selesai ---
     bookings: () => get('bookings', []),
-    myBookings() { const u = get('session', null); return u ? get('bookings', []).filter(b => b.user === u.email) : []; },
+    myBookings() { const u = this.user(); return u ? get('bookings', []).filter(b => b.user === u.email) : []; },
     findBooking: id => get('bookings', []).find(b => b.id === id),
     saveBooking(b) {
       const all = get('bookings', []), i = all.findIndex(x => x.id === b.id);

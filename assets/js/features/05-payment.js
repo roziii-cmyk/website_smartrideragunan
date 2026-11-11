@@ -1,84 +1,25 @@
-// ===== FITUR 5: PEMBAYARAN MANUAL (SIMULASI LOKAL) =====
+// ===== FITUR 5: PEMBAYARAN QRIS / VA (SIMULASI FRONTEND, SINGLE / CART) =====
 if (RSR.require('user')) {
-  let bk = RSR.findBooking(new URLSearchParams(location.search).get('id'));
-  const show = id => ['payNotFound', 'payForm', 'payDone'].forEach(x => $(x).classList.toggle('d-none', x !== id));
-  const done = () => {
-    $('doneId').textContent = bk.id;
-    const rejected = bk.status === 'pembayaran_ditolak';
-    $('paymentStatusText').textContent = rejected
-      ? 'Pembayaran ditolak admin: ' + (bk.rejectionNote || 'Silakan hubungi petugas.') + ' Anda dapat mengirim bukti baru.'
-      : 'Status: menunggu verifikasi admin. Timer sewa baru dimulai setelah admin menyetujui.';
-    show('payDone');
-  };
-  if (!bk || bk.user !== RSR.user().email) show('payNotFound');
-  else if (['menunggu_verifikasi','berjalan','selesai'].includes(bk.status)) done();
+  const params=new URLSearchParams(location.search);
+  const ids=(params.get('ids')||params.get('id')||'').split(',').filter(Boolean);
+  let bookings=ids.map(id=>RSR.findBooking(id)).filter(b=>b&&b.user===RSR.user().email);
+  const multi=bookings.length>1;
+  const show=id=>['payNotFound','payForm','payDone'].forEach(x=>$(x).classList.toggle('d-none',x!==id));
+  const paid=b=>b.paymentStatus==='lunas'||['menunggu_verifikasi','berjalan','selesai'].includes(b.status);
+  const done=()=>{ $('doneId').textContent=bookings.map(b=>b.id).join(', '); $('paymentStatusText').textContent='Status pembayaran LUNAS. Tunjukkan barcode kepada petugas; waktu sewa baru dimulai setelah barcode dipindai saat pengambilan.'; const host=$('doneBarcodes'); if(host){host.innerHTML='';bookings.forEach(b=>{const wrap=document.createElement('div');wrap.className='border rounded-3 p-2 text-center';wrap.innerHTML='<div class="small fw-semibold mb-1"></div><svg></svg>';wrap.querySelector('div').textContent=b.title+' · '+b.id;host.appendChild(wrap);if(window.JsBarcode)JsBarcode(wrap.querySelector('svg'),b.id,{format:'CODE128',width:2,height:65,displayValue:true,fontSize:13,margin:6});else wrap.querySelector('svg').outerHTML='<p>'+b.id+'</p>';});} show('payDone'); };
+  if(!bookings.length||bookings.length!==ids.length||bookings.some(b=>b.status==='dibatalkan'||b.status==='selesai')) show('payNotFound');
+  else if(bookings.every(paid)) done();
   else {
-    $('payId').textContent = bk.id; $('payTitle').textContent = bk.title + ' (' + bk.code + ')';
-    $('payInfo').textContent = bk.shelter + ' · ' + bk.date + ' ' + bk.time + ' · ' + bk.label;
-    $('payTotal').textContent = RSR.rp(bk.total); show('payForm');
-    const makePaymentInstruction = () => {
-      const method = $('method').value;
-      const existing = bk.paymentInstruction;
-      if (existing && existing.method === method) return existing;
-      const digits = n => Array.from({length:n}, () => Math.floor(Math.random() * 10)).join('');
-      let instruction;
-      if (method === 'Transfer Bank') {
-        instruction = {
-          method,
-          label: 'Virtual Account BCA (simulasi)',
-          number: '8808' + digits(12),
-          recipient: 'SMART RAGUNAN RIDE',
-          expiresAt: Date.now() + 30 * 60 * 1000
-        };
-      } else if (method === 'E-Wallet') {
-        instruction = {
-          method,
-          label: 'Kode Pembayaran E-Wallet (simulasi)',
-          number: 'SRR' + digits(10),
-          recipient: 'SMART RAGUNAN RIDE',
-          expiresAt: Date.now() + 30 * 60 * 1000
-        };
-      } else {
-        instruction = {
-          method: 'QRIS',
-          label: 'QRIS (simulasi)',
-          number: 'QR' + digits(12),
-          recipient: 'SMART RAGUNAN RIDE',
-          expiresAt: Date.now() + 30 * 60 * 1000
-        };
-      }
-      bk.paymentInstruction = instruction;
-      RSR.saveBooking(bk);
-      return instruction;
-    };
-    const renderPaymentInstruction = () => {
-      const instruction = makePaymentInstruction();
-      $('paymentDestinationTitle').textContent = instruction.label;
-      const isQris = instruction.method === 'QRIS';
-      $('qrisVisual').classList.toggle('d-none', !isQris);
-      $('paymentDestination').classList.toggle('d-none', isQris);
-      $('paymentDestination').textContent = isQris ? '' : instruction.number;
-      $('paymentRecipient').textContent = instruction.recipient;
-      $('paymentExpiry').textContent = new Date(instruction.expiresAt).toLocaleString('id-ID');
-      $('paymentInstructionNote').textContent = instruction.method === 'Transfer Bank'
-        ? 'Masukkan nomor Virtual Account di aplikasi bank. Ini hanya nomor demonstrasi, bukan VA bank yang aktif.'
-        : instruction.method === 'E-Wallet'
-          ? 'Masukkan kode pembayaran demonstrasi pada alur e-wallet. Kode ini bukan tagihan aktif dari penyedia e-wallet.'
-          : 'QR di atas hanya ilustrasi untuk simulasi antarmuka. Ini bukan QRIS merchant dan tidak dapat digunakan untuk transaksi uang sungguhan.';
-    };
-    $('method').onchange = renderPaymentInstruction;
-    renderPaymentInstruction();
-    $('payBtn').onclick = () => {
-      const file = $('proofFile').files[0];
-      if (!file) return RSR.notify('Pilih gambar bukti pembayaran terlebih dahulu.', 'danger');
-      if (!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size > 2 * 1024 * 1024) return RSR.notify('Bukti harus berupa JPG, PNG, atau WEBP maksimal 2 MB.', 'danger');
-      const reader = new FileReader();
-      reader.onload = () => {
-        Object.assign(bk, { status: 'menunggu_verifikasi', method: $('method').value, proofData: reader.result, proofName: file.name, proofAt: Date.now() });
-        RSR.saveBooking(bk); RSR.notify('Bukti pembayaran dikirim. Menunggu verifikasi admin.', 'success'); done();
-      };
-      reader.onerror = () => RSR.notify('Gagal membaca file bukti pembayaran.', 'danger');
-      reader.readAsDataURL(file);
-    };
+    $('payId').textContent=multi?bookings.length+' Booking':bookings[0].id;
+    $('payTitle').textContent=bookings.map(b=>b.title+' ('+b.code+')').join(' · ');
+    $('payInfo').textContent=bookings.map(b=>b.shelter+' · '+b.date+' '+b.time+' · '+b.label).join(' | ');
+    $('payTotal').textContent=RSR.rp(bookings.reduce((n,b)=>n+Number(b.total||0),0)); show('payForm');
+    const digits=n=>Array.from({length:n},()=>Math.floor(Math.random()*10)).join('');
+    const makeInstruction=()=>{const method=$('method').value; let x=bookings[0].paymentInstruction; if(!x||x.method!==method){x=method==='Transfer Bank'?{method,label:'Virtual Account BCA (simulasi)',number:'8808'+digits(12),recipient:'SMART RAGUNAN RIDE',expiresAt:Date.now()+30*60*1000}:{method:'QRIS',label:'QRIS (simulasi)',number:'QR'+digits(12),recipient:'SMART RAGUNAN RIDE',expiresAt:Date.now()+30*60*1000}; bookings.forEach(b=>{b.paymentInstruction=x;RSR.saveBooking(b)});} return x;};
+    const renderInstruction=()=>{const x=makeInstruction(),q=x.method==='QRIS'; $('paymentDestinationTitle').textContent=x.label; $('qrisVisual').classList.toggle('d-none',!q); $('paymentDestination').classList.toggle('d-none',q); $('paymentDestination').textContent=q?'':x.number; $('paymentRecipient').textContent=x.recipient; $('paymentExpiry').textContent=new Date(x.expiresAt).toLocaleString('id-ID'); $('paymentInstructionNote').textContent=q?'QR ini hanya ilustrasi. Tekan tombol simulasi untuk menandai pembayaran sebagai LUNAS.':'Nomor VA ini hanya contoh dan tidak terhubung ke bank sungguhan.';};
+    $('method').innerHTML='<option value="QRIS">QRIS</option><option value="Transfer Bank">Virtual Account</option>'; $('method').onchange=renderInstruction; renderInstruction();
+    const note=document.querySelector('#payForm .alert-info'); if(note)note.textContent='Draf pembayaran tersimpan otomatis. Jika Anda berpindah halaman atau menutup tab sebelum membayar, pesanan tetap berstatus BELUM BAYAR dan dapat dilanjutkan dari Dashboard / Riwayat Peminjaman. Untuk checkout keranjang, satu simulasi pembayaran melunasi seluruh booking di daftar ini.';
+    const proof=$('proofFile'); if(proof)proof.closest('label')?.remove(); if(proof)proof.remove(); $('payBtn').textContent='Simulasikan Pembayaran Berhasil';
+    $('payBtn').onclick=()=>{const method=$('method').value; bookings.forEach(b=>{Object.assign(b,{status:'berjalan',paymentStatus:'lunas',isPaymentDraft:false,paidAt:Date.now(),verifiedAt:Date.now(),confirmedAt:Date.now(),startedAt:Date.now(),method, pickupStatus:'menunggu_diambil'});RSR.saveBooking(b)}); RSR.notify('Pembayaran berhasil. Barcode pengambilan sudah tersedia.','success'); done();};
   }
 }

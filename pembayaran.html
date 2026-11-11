@@ -48,7 +48,7 @@
         <p class="mb-0" id="payTitle"></p>
         <p class="text-muted" id="payInfo"></p>
         <p class="fs-4 fw-bold text-primary">Total <span id="payTotal"></span></p>
-        <div class="alert alert-info small"><b>Alur pembayaran:</b> lakukan transfer/QRIS, unggah bukti pembayaran, lalu tunggu admin memverifikasi. Booking belum aktif sebelum disetujui.</div>
+        <div class="alert alert-info small"><b>Alur pembayaran:</b> pilih QRIS atau Virtual Account, jalankan simulasi pembayaran, lalu tunggu admin memverifikasi. Booking belum aktif sebelum disetujui.</div>
         <label class="form-label fw-semibold" for="method">Metode pembayaran</label>
         <select id="method" class="form-select mb-3"><option value="QRIS">QRIS</option><option value="Transfer Bank">Transfer Bank / Virtual Account</option><option value="E-Wallet">E-Wallet</option></select>
         <div class="border rounded-3 p-3 mb-3 bg-light">
@@ -62,17 +62,18 @@
           <div class="small">Atas nama: <b id="paymentRecipient">SMART RAGUNAN RIDE</b></div>
           <div class="small text-muted mt-2">Batas waktu pembayaran: <b id="paymentExpiry">-</b></div>
           <p class="small text-muted mt-2 mb-0" id="paymentInstructionNote"></p>
-          <div class="alert alert-warning small mt-3 mb-0">Ini adalah simulasi Virtual Account/kode pembayaran. Tidak terhubung ke bank atau penyedia e-wallet dan tidak menerima pembayaran sungguhan. Setelah simulasi pembayaran, unggah bukti untuk diperiksa admin.</div>
+          <div class="alert alert-warning small mt-3 mb-0">Ini adalah simulasi Virtual Account. Tidak terhubung ke bank atau penyedia e-wallet dan tidak menerima pembayaran sungguhan.</div>
         </div>
-        <label class="form-label fw-semibold" for="proofFile">Unggah bukti pembayaran</label>
-        <input id="proofFile" type="file" accept="image/png,image/jpeg,image/webp" class="form-control mb-2">
-        <small class="text-muted d-block mb-3">Format JPG, PNG, atau WEBP. Maksimal 2 MB.</small>
-        <button id="payBtn" type="button" class="btn btn-primary w-100">Kirim Bukti Pembayaran</button>
+        <label class="form-label fw-semibold" for="proofFile" hidden>Unggah bukti pembayaran</label>
+        <input id="proofFile" type="file" accept="image/png,image/jpeg,image/webp" class="form-control mb-2" hidden>
+        
+        <button id="payBtn" type="button" class="btn btn-primary w-100">Simulasikan Pembayaran Berhasil</button>
       </div>
       <div id="payDone" class="d-none text-center">
-        <div class="rounded-circle bg-warning-subtle text-warning d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px"><i class="bi bi-hourglass-split fs-2"></i></div>
-        <h1 class="h4 text-primary">Menunggu Verifikasi Admin</h1>
-        <p>Bukti pembayaran untuk booking <b id="doneId"></b> sudah dikirim. Sewa belum dimulai.</p>
+        <div class="rounded-circle bg-success-subtle text-success d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px"><i class="bi bi-check-lg fs-2"></i></div>
+        <h1 class="h4 text-primary">Pembayaran Berhasil!</h1>
+        <p>Kode booking: <b id="doneId"></b>. Tunjukkan barcode berikut kepada petugas saat mengambil kendaraan.</p>
+        <div id="doneBarcodes" class="d-flex flex-column align-items-center gap-3 my-3"></div>
         <p class="small text-muted" id="paymentStatusText">Admin akan memeriksa bukti pembayaran.</p>
         <a href="dashboard.html" class="btn btn-primary">Lihat Status di Dashboard</a>
       </div>
@@ -121,7 +122,7 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="assets/js/core/storage.js"></script>
 <script src="assets/js/core/ui.js"></script>
 <script src="assets/js/features/01-auth.js"></script>

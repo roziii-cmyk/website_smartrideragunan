@@ -26,7 +26,7 @@
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link active" href="admin.html">Dashboard Admin</a></li>
           <li class="nav-item"><a class="nav-link" href="iot.html">Monitoring IoT</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html">Lihat Website</a></li>
+          <li class="nav-item"><a class="nav-link" href="riwayat-admin.html">Riwayat Peminjaman</a></li>
           <li class="nav-item ms-lg-3">
             <div class="btn-group btn-group-sm" role="group" aria-label="Pilih peran">
               <button type="button" data-role="customer" class="btn btn-outline-primary">Customer</button>
@@ -45,34 +45,62 @@
   <div class="row g-3 mb-4"><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Total Booking</small><p id="sTotal" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Sewa Berjalan</small><p id="sRunning" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Menunggu Verifikasi</small><p id="sWaiting" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Pendapatan</small><p id="sIncome" class="h4 text-primary mb-0"></p></div></div></div></div>
 
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
-    <h2 class="h5 text-primary mb-3">Verifikasi Pembayaran &amp; Pengembalian (fitur 12)</h2>
+    <h2 class="h5 text-primary mb-3">Verifikasi Pembayaran &amp; Pengembalian </h2>
     <div class="input-group">
       <input id="bookingId" class="form-control" placeholder="Kode booking, mis. BK1234567">
       <button id="btnVerify" type="button" class="btn btn-primary">Setujui &amp; Mulai Sewa</button>
       <button id="btnReturn" type="button" class="btn btn-success">Konfirmasi Pengembalian</button>
     </div>
   </div></section>
+
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
-    <h2 class="h5 text-primary mb-3">Semua Booking (fitur 12)</h2>
+    <h2 class="h5 text-primary mb-3">Semua Booking</h2>
     <div class="table-responsive"><table class="table align-middle">
-      <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jadwal</th><th>Total</th><th>Status</th><th>Bukti</th><th>Aksi</th></tr></thead>
+      <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jadwal Pengambilan</th><th>Waktu Booking</th><th>Waktu Pembayaran</th><th>Total</th><th>Pembayaran</th><th>Status Sewa</th><th>Bukti</th><th>Aksi</th></tr></thead>
       <tbody id="bookingRows"></tbody>
     </table></div>
     <p id="bookingEmpty" class="d-none mb-0">Belum ada booking.</p>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
-    <h2 class="h5 text-primary mb-3">Kelola Kendaraan (fitur 11)</h2>
+    <h2 class="h5 text-primary mb-3">Kelola Kendaraan</h2>
     <div class="table-responsive"><table class="table align-middle">
       <thead><tr><th>Kode</th><th>Nama</th><th>Tarif</th><th>Status</th><th></th></tr></thead>
       <tbody id="bikeRows"></tbody>
     </table></div>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Tambah Customer Offline</h2>
+    <form id="manualCustomerForm" class="row g-2">
+      <div class="col-md-3"><input id="offlineName" class="form-control" placeholder="Nama customer" required></div>
+      <div class="col-md-2"><input id="offlinePhone" class="form-control" placeholder="Nomor HP" required></div>
+      <div class="col-md-2"><input id="offlineEmail" type="email" class="form-control" placeholder="Email (opsional)"></div>
+      <div class="col-md-3"><select id="offlineBike" class="form-select" required><option value="">Pilih kendaraan katalog</option></select></div>
+      <div class="col-md-1"><input id="offlineDuration" type="number" min="1" value="1" class="form-control" title="Durasi / jumlah"></div>
+      <div class="col-md-1"><button class="btn btn-primary w-100" type="submit">Tambah</button></div>
+      <div class="col-12"><small class="text-muted">Admin memilih kendaraan dan durasi secara manual. Booking offline langsung tercatat sebagai sewa berjalan.</small></div>
+    </form><div id="offlineCustomerList" class="small mt-3"></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Tambah Kendaraan Baru</h2>
+    <form id="manualBikeForm" class="row g-2">
+      <div class="col-md-3"><input id="newBikeName" class="form-control" placeholder="Nama kendaraan" required></div>
+      <div class="col-md-2"><select id="newBikeType" class="form-select"><option value="sepeda">Sepeda Biasa</option><option value="ebike">Sepeda Listrik</option><option value="skuter">Skuter</option><option value="buggy">Buggy Car</option><option value="shuttle">Shuttle</option><option value="stroller">Stroller</option></select></div>
+      <div class="col-md-2"><input id="newBikePrice" type="number" min="0" class="form-control" placeholder="Tarif" required></div>
+      <div class="col-md-2"><select id="newBikeShelter" class="form-select"><option value="utara">Shelter Utara</option><option value="barat">Shelter Barat</option></select></div>
+      <div class="col-md-3"><input id="newBikeImage" type="file" accept="image/png,image/jpeg,image/webp" class="form-control"></div>
+      <div class="col-12"><button class="btn btn-primary" type="submit">Simpan Kendaraan</button><small class="text-muted ms-2">Gambar maksimal 2 MB. Data simulasi disimpan di browser.</small></div>
+    </form>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Monitoring Batas Waktu Penyewaan</h2>
+    <div class="table-responsive"><table class="table align-middle"><thead><tr><th>ID Booking</th><th>Customer</th><th>ID Kendaraan</th><th>Mulai</th><th>Batas Waktu</th><th>Sisa Waktu</th><th>Status</th></tr></thead><tbody id="rentalMonitorRows"></tbody></table></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
     <h2 class="h5 text-primary mb-3">Ulasan &amp; Rating (<span id="reviewAvg"></span>)</h2>
     <div id="reviewList"></div>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
-    <h2 class="h5 text-primary mb-3">Peringatan IoT &amp; SOS (fitur 14, 15)</h2>
+    <h2 class="h5 text-primary mb-3">Peringatan IoT &amp; SOS</h2>
     <div id="events"></div>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
@@ -119,6 +147,7 @@
 <script src="assets/js/features/12-admin-bookings.js"></script>
 <script src="assets/js/features/16-reviews.js"></script>
 <script src="assets/js/pages/admin.js"></script>
+<script src="assets/js/features/17-pickup-scanner.js"></script>
 <script src="assets/js/core/motion.js"></script>
 <script src="assets/js/features/music-player.js"></script>
 </body>

@@ -10,9 +10,10 @@ RSR.event = (text, type) => { RSR.addEvent(text, type); RSR.notify(text, type); 
 
 // peringatan otomatis: sisa waktu sewa < 10 menit
 setInterval(() => {
-  const r = RSR.myBookings().find(b => b.status === 'berjalan'); if (!r) return;
-  const left = (r.startedAt + r.hours * 3600000 - Date.now()) / 60000;
-  if (left > 0 && left <= 10 && !sessionStorage['warn' + r.id]) { sessionStorage['warn' + r.id] = 1; RSR.notify('Sisa waktu sewa kurang dari 10 menit!', 'danger'); }
+  RSR.myBookings().filter(b => b.status === 'berjalan').forEach(r => {
+  const left = (Number(r.startedAt || r.confirmedAt) + Number(r.hours || 1) * 3600000 - Date.now()) / 60000;
+  if (left > 0 && left <= 10 && !sessionStorage['warn' + r.id]) { sessionStorage['warn' + r.id] = 1; RSR.notify('Sisa waktu booking ' + r.id + ' kurang dari 10 menit!', 'danger'); }
+  });
 }, 15000);
 
 // admin menerima peringatan IoT / SOS yang dikirim dari tab lain
