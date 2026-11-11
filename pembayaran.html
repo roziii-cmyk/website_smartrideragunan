@@ -48,14 +48,33 @@
         <p class="mb-0" id="payTitle"></p>
         <p class="text-muted" id="payInfo"></p>
         <p class="fs-4 fw-bold text-primary">Total <span id="payTotal"></span></p>
-        <select id="method" class="form-select mb-3"><option>QRIS</option><option>Transfer Bank</option><option>E-Wallet</option></select>
-        <button id="payBtn" type="button" class="btn btn-primary w-100">Bayar Sekarang</button>
+        <div class="alert alert-info small"><b>Alur pembayaran:</b> lakukan transfer/QRIS, unggah bukti pembayaran, lalu tunggu admin memverifikasi. Booking belum aktif sebelum disetujui.</div>
+        <label class="form-label fw-semibold" for="method">Metode pembayaran</label>
+        <select id="method" class="form-select mb-3"><option value="QRIS">QRIS</option><option value="Transfer Bank">Transfer Bank / Virtual Account</option><option value="E-Wallet">E-Wallet</option></select>
+        <div class="border rounded-3 p-3 mb-3 bg-light">
+          <div class="fw-semibold mb-2" id="paymentDestinationTitle">Nomor pembayaran (simulasi)</div>
+          <div id="qrisVisual" class="text-center d-none mb-3">
+            <img src="assets/img/qris-simulasi.png" alt="QR kode demonstrasi Smart Ragunan Ride, bukan QRIS pembayaran" width="230" height="230" class="img-fluid bg-white border rounded-3 p-2" style="max-width:230px">
+            <div class="fw-bold mt-2">QRIS DEMO — BUKAN UNTUK PEMBAYARAN</div>
+            <div class="small text-muted">Kode QR ini hanya contoh tampilan dan tidak dapat dipindai untuk membayar.</div>
+          </div>
+          <div class="fs-5 fw-bold text-primary mb-1" id="paymentDestination">-</div>
+          <div class="small">Atas nama: <b id="paymentRecipient">SMART RAGUNAN RIDE</b></div>
+          <div class="small text-muted mt-2">Batas waktu pembayaran: <b id="paymentExpiry">-</b></div>
+          <p class="small text-muted mt-2 mb-0" id="paymentInstructionNote"></p>
+          <div class="alert alert-warning small mt-3 mb-0">Ini adalah simulasi Virtual Account/kode pembayaran. Tidak terhubung ke bank atau penyedia e-wallet dan tidak menerima pembayaran sungguhan. Setelah simulasi pembayaran, unggah bukti untuk diperiksa admin.</div>
+        </div>
+        <label class="form-label fw-semibold" for="proofFile">Unggah bukti pembayaran</label>
+        <input id="proofFile" type="file" accept="image/png,image/jpeg,image/webp" class="form-control mb-2">
+        <small class="text-muted d-block mb-3">Format JPG, PNG, atau WEBP. Maksimal 2 MB.</small>
+        <button id="payBtn" type="button" class="btn btn-primary w-100">Kirim Bukti Pembayaran</button>
       </div>
       <div id="payDone" class="d-none text-center">
-        <h1 class="h4 text-primary">Pembayaran Berhasil</h1>
-        <p>Tunjukkan QR ini ke petugas shelter. Kode: <b id="doneId"></b></p>
-        <div id="qr" class="d-flex justify-content-center mb-3"></div>
-        <a href="dashboard.html" class="btn btn-primary">Ke Dashboard</a>
+        <div class="rounded-circle bg-warning-subtle text-warning d-inline-flex align-items-center justify-content-center mb-3" style="width:64px;height:64px"><i class="bi bi-hourglass-split fs-2"></i></div>
+        <h1 class="h4 text-primary">Menunggu Verifikasi Admin</h1>
+        <p>Bukti pembayaran untuk booking <b id="doneId"></b> sudah dikirim. Sewa belum dimulai.</p>
+        <p class="small text-muted" id="paymentStatusText">Admin akan memeriksa bukti pembayaran.</p>
+        <a href="dashboard.html" class="btn btn-primary">Lihat Status di Dashboard</a>
       </div>
     </div></div>
   </div></div>
@@ -110,5 +129,6 @@
 <script src="assets/js/features/06-qr-booking.js"></script>
 <script src="assets/js/features/05-payment.js"></script>
 <script src="assets/js/core/motion.js"></script>
+<script src="assets/js/features/music-player.js"></script>
 </body>
 </html>

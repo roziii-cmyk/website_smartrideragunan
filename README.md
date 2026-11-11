@@ -1,44 +1,30 @@
 # Ragunan Smart Ride
 
-Website untuk layanan penyewaan sepeda di Taman Margasatwa Ragunan yang dirancang untuk memudahkan pengunjung melakukan pemesanan dan penyewaan sepeda.
+Jalankan: buka folder di VS Code > klik kanan index.html > "Open with Live Server"
+(atau terminal: python -m http.server 8000 lalu buka http://localhost:8000)
 
-## Cara Menjalankan Website
+- Customer: daftar/login di login.html
+- Admin: tombol "Admin" di kanan atas > username `admin`, password `admin123` (ubah hash di assets/js/core/ui.js)
+- Logo: timpa assets/img/logo.jpg | Foto kendaraan: lihat assets/img/kendaraan/README.txt
+- Penjelasan struktur & alur: PENJELASAN.md
+Butuh internet (Bootstrap, font, ikon, library QR, peta).
 
-1. Buka folder project menggunakan VS Code.
-2. Klik kanan pada file `index.html`.
-3. Pilih Open with Live Server.
+Struktur: kerangka tampilan ada di file .html; JavaScript (assets/js) hanya mengisi data dan memproses aksi.
 
-Alternatif menggunakan Python:
+## Alur Pembayaran & Verifikasi (Simulasi Lokal)
 
-    python -m http.server 8000
+1. Customer membuat booking dan diarahkan ke halaman pembayaran.
+2. Customer memilih QRIS/transfer simulasi lalu mengunggah bukti pembayaran (JPG/PNG/WEBP, maksimal 2 MB).
+3. Booking berubah menjadi `menunggu_verifikasi` dan bukti tersimpan di localStorage browser.
+4. Admin membuka Dashboard Admin, melihat tautan bukti, lalu memilih **Setujui & Mulai Sewa** atau **Tolak**.
+5. Saat disetujui, status menjadi `berjalan` dan `startedAt` dicatat. Timer sewa dimulai pada saat itu.
+6. Jika ditolak, customer melihat alasan penolakan dan dapat mengirim bukti baru.
 
-Kemudian buka http://localhost:8000 melalui browser.
+**Catatan penting:** ini simulasi frontend. Data localStorage hanya tersedia pada browser/perangkat yang sama; unggah bukti tidak dikirim ke server. Pembayaran QRIS/transfer tidak benar-benar diproses. Untuk penggunaan lintas perangkat dan transaksi sungguhan, diperlukan backend/database serta payment gateway.
 
-## Fitur Website
 
-- Registrasi dan login customer.
-- Pemesanan dan penyewaan sepeda.
-- Dashboard customer.
-- Dashboard admin.
-- Pengelolaan data penyewaan.
-- Informasi kendaraan dan layanan.
-
-## Teknologi
-
-- HTML
-- CSS
-- JavaScript
-- Bootstrap
-
-## Struktur Project
-
-- `index.html`: Halaman utama.
-- `login.html`: Halaman login customer.
-- `assets/css/`: File CSS.
-- `assets/js/`: File JavaScript.
-- `assets/img/`: Penyimpanan gambar dan logo.
-- `PENJELASAN.md`: Penjelasan struktur dan alur website.
-
-## Catatan
-
-Website membutuhkan koneksi internet untuk memuat beberapa library eksternal, seperti Bootstrap, font, ikon, QR Code, dan peta.
+## Fitur tambahan (simulasi frontend)
+- Backsound ceria original dibuat khusus untuk proyek ini, tersedia pada `assets/audio/backsound-ceria-original.wav`. Klik tombol ▶ untuk memulai karena browser umumnya memblokir autoplay bersuara.
+- Rating dan ulasan pelanggan ditampilkan di beranda dari data localStorage browser.
+- Monitoring IoT menampilkan detail booking aktif dan koordinat lokasi simulasi; bukan GPS sungguhan.
+- Tidak menggunakan Supabase/backend. Data localStorage hanya tersedia pada browser/perangkat yang sama.

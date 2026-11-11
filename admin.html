@@ -42,20 +42,20 @@
   <h1 class="h3 text-primary mb-3">Dashboard Admin</h1>
 
   <!-- Fitur 10: statistik -->
-  <div class="row g-3 mb-4"><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Total Booking</small><p id="sTotal" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Sewa Berjalan</small><p id="sRunning" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Menunggu Pengambilan</small><p id="sWaiting" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Pendapatan</small><p id="sIncome" class="h4 text-primary mb-0"></p></div></div></div></div>
+  <div class="row g-3 mb-4"><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Total Booking</small><p id="sTotal" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Sewa Berjalan</small><p id="sRunning" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Menunggu Verifikasi</small><p id="sWaiting" class="h4 text-primary mb-0"></p></div></div></div><div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><small class="text-muted">Pendapatan</small><p id="sIncome" class="h4 text-primary mb-0"></p></div></div></div></div>
 
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
-    <h2 class="h5 text-primary mb-3">Verifikasi Cepat (fitur 12)</h2>
+    <h2 class="h5 text-primary mb-3">Verifikasi Pembayaran &amp; Pengembalian (fitur 12)</h2>
     <div class="input-group">
       <input id="bookingId" class="form-control" placeholder="Kode booking, mis. BK1234567">
-      <button id="btnVerify" type="button" class="btn btn-primary">Verifikasi Pengambilan</button>
+      <button id="btnVerify" type="button" class="btn btn-primary">Setujui &amp; Mulai Sewa</button>
       <button id="btnReturn" type="button" class="btn btn-success">Konfirmasi Pengembalian</button>
     </div>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
     <h2 class="h5 text-primary mb-3">Semua Booking (fitur 12)</h2>
     <div class="table-responsive"><table class="table align-middle">
-      <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jadwal</th><th>Total</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>ID</th><th>Nama</th><th>Unit</th><th>Jadwal</th><th>Total</th><th>Status</th><th>Bukti</th><th>Aksi</th></tr></thead>
       <tbody id="bookingRows"></tbody>
     </table></div>
     <p id="bookingEmpty" class="d-none mb-0">Belum ada booking.</p>
@@ -74,6 +74,11 @@
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
     <h2 class="h5 text-primary mb-3">Peringatan IoT &amp; SOS (fitur 14, 15)</h2>
     <div id="events"></div>
+  </div></section>
+  <section class="card border-0 shadow-sm mb-4"><div class="card-body">
+    <h2 class="h5 text-primary mb-3">Kendaraan Keluar Area</h2>
+    <p class="small text-muted">Informasi lokasi terakhir kendaraan yang terdeteksi keluar dari area yang diizinkan.</p>
+    <div id="geofenceAlerts"><p class="small text-muted mb-0">Belum ada kendaraan yang terdeteksi keluar area.</p></div>
   </div></section>
   <section class="card border-0 shadow-sm mb-4"><div class="card-body">
     <h2 class="h5 text-primary mb-3">Telemetri ESP32 (simulasi, deteksi otomatis)</h2>
@@ -115,5 +120,6 @@
 <script src="assets/js/features/16-reviews.js"></script>
 <script src="assets/js/pages/admin.js"></script>
 <script src="assets/js/core/motion.js"></script>
+<script src="assets/js/features/music-player.js"></script>
 </body>
 </html>
